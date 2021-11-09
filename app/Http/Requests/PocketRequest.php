@@ -27,7 +27,7 @@ class PocketRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|unique:pockets|max:255',
+            'title' => 'required|max:255|unique:pockets',
         ];
     }
 }
