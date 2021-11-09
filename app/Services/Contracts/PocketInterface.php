@@ -6,8 +6,7 @@ namespace App\Services\Contracts;
 
 interface PocketServiceInterface
 {
-
-    public function getPocketList(): array ;
+    public function getPocketList(): array;
 
     public function storePocket(array $data);
 }

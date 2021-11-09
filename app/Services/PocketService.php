@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-
 use App\Http\Resources\PocketResource;
 use App\Repositories\Contracts\PocketRepositoryInterface;
 use App\Services\Contracts\PocketServiceInterface;
@@ -28,7 +27,7 @@ class PocketService implements PocketServiceInterface
     /**
      * @return mixed
      */
-    public function getPocketList()
+    public function getPocketList(): array
     {
         return $this->pocketRepository->all();
     }

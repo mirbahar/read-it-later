@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Eloquent;
-
 
 use App\Repositories\Contracts\EloquentRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
