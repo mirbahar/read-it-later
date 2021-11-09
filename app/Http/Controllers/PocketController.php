@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PocketRequest;
 use App\Services\Contracts\PocketServiceInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -22,11 +23,12 @@ class PocketController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @param Request $request
+     * @return LengthAwarePaginator
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->pocketService->getPocketList();
+        return $this->pocketService->getPocketList($request);
     }
 
     /**
@@ -77,7 +79,7 @@ class PocketController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
      * @return Response
      */

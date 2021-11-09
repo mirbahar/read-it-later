@@ -4,11 +4,13 @@ namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\EloquentRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 
 class BaseRepository implements EloquentRepositoryInterface
 {
     /**
-     * @var Model
+     * @var Model |Builder|\Illuminate\Database\Eloquent\Builder
      */
     protected $model;
 
@@ -22,22 +24,34 @@ class BaseRepository implements EloquentRepositoryInterface
         $this->model = $model;
     }
 
-    /**
-     * @param array $attributes
-     *
-     * @return Model
-     */
     public function create(array $attributes): Model
     {
         return $this->model->create($attributes);
     }
 
-    /**
-     * @param $id
-     * @return Model
-     */
-    public function find($id): ?Model
+    public function find(int $id): ?Model
     {
         return $this->model->find($id);
+    }
+
+    public function all(): Collection
+    {
+        return $this->model->all();
+    }
+
+    /**
+     * Paginate the given query.
+     *
+     * @param  int|null  $perPage
+     * @param  array  $columns
+     * @param  string  $pageName
+     * @param  int|null  $page
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
+    {
+        return $this->model->paginate($perPage, $columns, $pageName, $page);
     }
 }

@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Http\Resources\PocketResource;
 use App\Repositories\Contracts\PocketRepositoryInterface;
 use App\Services\Contracts\PocketServiceInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Request;
 
 class PocketService implements PocketServiceInterface
 {
@@ -24,12 +26,10 @@ class PocketService implements PocketServiceInterface
         $this->pocketRepository = $pocketRepository;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPocketList(): array
+
+    public function getPocketList(Request $request): LengthAwarePaginator
     {
-        return $this->pocketRepository->all();
+        return $this->pocketRepository->paginate();
     }
 
     /**
