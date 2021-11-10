@@ -15,14 +15,15 @@ class CreateContentsTable extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('pocket_id')->unsigned();
+            $table->unsignedBigInteger('pocket_id');
             $table->foreign('pocket_id')
                 ->references('id')
                 ->on('pockets')
                 ->onDelete('cascade');
-            $table->text('url');
+            $table->longText('url');
             $table->string('title')->nullable();
             $table->longText('excerpt')->nullable();
+            $table->longText('image')->nullable();
             $table->timestamps();
         });
     }

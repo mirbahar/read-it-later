@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\PocketController;
 
 use Illuminate\Support\Facades\Route;
@@ -19,4 +19,5 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function () {
 
     Route::resource('pockets', PocketController::class);
+    Route::resource('contents',ContentController::class);
 });

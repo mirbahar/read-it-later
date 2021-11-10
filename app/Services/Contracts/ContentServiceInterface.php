@@ -6,7 +6,6 @@ interface ContentServiceInterface
 {
     /**
      * @param $data
-
      */
-    public function createPocket($data);
+    public function createContent($data);
 }

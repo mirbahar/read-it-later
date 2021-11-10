@@ -29,7 +29,7 @@ class ContentService implements ContentServiceInterface
      * @param $data
      * @return mixed
      */
-    public function createPocket($data)
+    public function createContent($data)
     {
         $content = $this->contentRepository->create($data);
         return new ContentResource($content);
