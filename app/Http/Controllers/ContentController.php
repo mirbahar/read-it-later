@@ -38,7 +38,7 @@ class ContentController extends Controller
     public function store(ContentRequest $request)
     {
         return $this->contentService->createContent([
-            'pocket_id'=>$request->pocket_id,
+            'pocket_id' => $request->pocket_id,
             'url' => $request->url,
         ]);
     }

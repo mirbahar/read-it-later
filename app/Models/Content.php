@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\ContentProcessed;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,5 +22,18 @@ class Content extends Model
     public function pocket(): BelongsTo
     {
         return $this->belongsTo(Pocket::class);
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::created(function (Content $content) {
+
+            ContentProcessed::dispatch($content);
+        });
     }
 }
