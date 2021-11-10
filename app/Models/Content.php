@@ -18,7 +18,7 @@ class Content extends Model
         'image'
     ];
 
-    public function pocket():BelongsTo
+    public function pocket(): BelongsTo
     {
         return $this->belongsTo(Pocket::class);
     }
