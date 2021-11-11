@@ -11,4 +11,9 @@ class TagRepository extends BaseRepository implements TagRepositoryInterface
     {
         parent::__construct($model);
     }
+
+    public function findByContent($contentId)
+    {
+        return $this->model->where('content_id', $contentId);
+    }
 }

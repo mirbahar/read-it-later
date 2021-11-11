@@ -50,7 +50,7 @@ class ContentController extends Controller
                 'url' => $request->url,
             ]);
 
-         $this->tagService->createTags($content);
+        $this->tagService->createTags($content);
 
         return $content;
     }

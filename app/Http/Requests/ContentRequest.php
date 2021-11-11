@@ -29,7 +29,7 @@ class ContentRequest extends FormRequest
     {
         return [
             'pocket_id' => 'required|exists:pockets,id',
-            'url' => 'required|url'
+            'url' => 'required|unique:contents,url'
         ];
     }
 }

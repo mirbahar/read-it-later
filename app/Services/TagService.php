@@ -59,4 +59,9 @@ class TagService implements TagServiceInterface
 
        return $hashtags;
     }
+
+    public function findByContent($contentId)
+    {
+        return $this->tagRepository->findByContent($contentId);
+    }
 }

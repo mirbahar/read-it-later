@@ -8,4 +8,6 @@ interface TagServiceInterface
      * @param $data
      */
     public function createTags($data);
+
+    public function findByContent($contentId);
 }
