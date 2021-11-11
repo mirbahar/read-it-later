@@ -6,6 +6,7 @@ use App\Events\ContentProcessed;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Content extends Model
 {
@@ -22,6 +23,11 @@ class Content extends Model
     public function pocket(): BelongsTo
     {
         return $this->belongsTo(Pocket::class);
+    }
+
+    public function tags(): HasMany
+    {
+        return $this->hasMany(Tag::class);
     }
 
     /**

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ContentRequest;
 use App\Models\Content;
 use App\Services\Contracts\ContentServiceInterface;
+use App\Services\Contracts\TagServiceInterface;
+use App\Services\TagService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -15,9 +17,15 @@ class ContentController extends Controller
      */
     private $contentService;
 
-    public function __construct(ContentServiceInterface $contentService)
+    /**
+     * @var TagServiceInterface
+     */
+    private $tagService;
+
+    public function __construct(ContentServiceInterface $contentService, TagServiceInterface $tagService)
     {
         $this->contentService = $contentService;
+        $this->tagService     = $tagService;
     }
     /**
      * Display a listing of the resource.
@@ -37,10 +45,14 @@ class ContentController extends Controller
      */
     public function store(ContentRequest $request)
     {
-        return $this->contentService->createContent([
-            'pocket_id' => $request->pocket_id,
-            'url' => $request->url,
-        ]);
+        $content = $this->contentService->createContent([
+                'pocket_id' => $request->pocket_id,
+                'url' => $request->url,
+            ]);
+
+         $this->tagService->createTags($content);
+
+        return $content;
     }
 
     /**

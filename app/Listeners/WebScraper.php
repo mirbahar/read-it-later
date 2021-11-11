@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\ContentProcessed;
 use App\Jobs\ProcessCrawlContent;
+use App\Services\TagService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 

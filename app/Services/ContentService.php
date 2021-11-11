@@ -4,13 +4,12 @@ namespace App\Services;
 
 use App\Http\Resources\ContentResource;
 use App\Repositories\Contracts\ContentRepositoryInterface;
-use App\Repositories\Contracts\PocketRepositoryInterface;
 use App\Services\Contracts\ContentServiceInterface;
 
 class ContentService implements ContentServiceInterface
 {
     /**
-     * @var PocketRepositoryInterface
+     * @var ContentRepositoryInterface
      */
     private $contentRepository;
 
