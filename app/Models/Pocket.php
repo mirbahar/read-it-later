@@ -23,4 +23,17 @@ class Pocket extends Model
     {
         return $this->hasMany(Content::class);
     }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::deleting(function (Pocket $pocket) {
+
+            $pocket->contents()->delete();
+        });
+    }
 }

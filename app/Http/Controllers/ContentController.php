@@ -6,7 +6,6 @@ use App\Http\Requests\ContentRequest;
 use App\Models\Content;
 use App\Services\Contracts\ContentServiceInterface;
 use App\Services\Contracts\TagServiceInterface;
-use App\Services\TagService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -27,14 +26,29 @@ class ContentController extends Controller
         $this->contentService = $contentService;
         $this->tagService     = $tagService;
     }
+
     /**
      * Display a listing of the resource.
      *
+     * @param null $perPage
      * @return Response
      */
-    public function index()
+    public function index($perPage = null)
     {
-        //
+        return $this->contentService->getPocketList($perPage);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function getContentByHashTag(Request $request)
+    {
+        $hashTag = $request->get('hashTag');
+
+        return $this->contentService->getAllContentByHashTag($hashTag);
     }
 
     /**
@@ -92,11 +106,12 @@ class ContentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Content $content
+     * @param $url
      * @return Response
      */
-    public function destroy(Content $content)
+    public function destroy($url)
     {
-        //
+        $content = $this->contentService->contentDeleteByUrl($url);
+        return $content;
     }
 }

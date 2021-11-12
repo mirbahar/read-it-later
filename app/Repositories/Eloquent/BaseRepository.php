@@ -40,6 +40,15 @@ class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
+     * @param int $id
+     * @return bool|null
+     */
+    public function delete(int $id)
+    {
+        return $this->model->where('id', $id)->delete();
+    }
+
+    /**
      * Paginate the given query.
      *
      * @param  int|null  $perPage

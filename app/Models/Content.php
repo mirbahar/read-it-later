@@ -41,5 +41,11 @@ class Content extends Model
 
             ContentProcessed::dispatch($content);
         });
+
+        static::deleting(function (Content $content) {
+
+            $content->tags()->delete();
+        });
     }
+
 }

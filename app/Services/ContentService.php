@@ -33,4 +33,33 @@ class ContentService implements ContentServiceInterface
         $content = $this->contentRepository->create($data);
         return new ContentResource($content);
     }
+    /**
+     * @param $url
+     * @return mixed
+     */
+    public function contentDeleteByUrl($url)
+    {
+        $content = $this->contentRepository->contentDeleteByUrl($url);
+        return new ContentResource($content);
+    }
+
+    public function getPocketList($perPage)
+    {
+        $contents = $this->contentRepository->paginate($perPage);
+        return $contents;
+    }
+
+    public function getAllContentByHashTag(string $hashTag)
+    {
+        $hash = explode(',',$hashTag);
+
+        if(!is_array($hash)) {
+
+            return response()->json('use valid hashtag or key words');
+        }
+
+        $contents = $this->contentRepository->getAllContentByHashTag($hash);
+
+        return $contents;
+    }
 }

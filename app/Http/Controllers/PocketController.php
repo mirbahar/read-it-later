@@ -7,6 +7,7 @@ use App\Services\Contracts\PocketServiceInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 
 class PocketController extends Controller
 {
@@ -23,22 +24,12 @@ class PocketController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param $perPage
      * @return LengthAwarePaginator
      */
-    public function index(Request $request)
+    public function index($perPage = null)
     {
-        return $this->pocketService->getPocketList($request);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
+        return $this->pocketService->getPocketList($perPage);
     }
 
     /**
@@ -54,26 +45,9 @@ class PocketController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
+    public function show(int $id): ?Collection
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
+        return $this->pocketService->detailsPocketById($id);
     }
 
     /**
@@ -91,11 +65,19 @@ class PocketController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return bool
+     * @throws \Exception
      */
     public function destroy(int $id)
     {
-        //
+        $pocketRow = $this->pocketService->deletePocketById($id);
+;
+        if (is_null($pocketRow)) {
+            return response()->json("Pocket id not found", 404);
+        }
+
+        return response()->json('Pocket has been deleted', 200);
+
     }
 }
