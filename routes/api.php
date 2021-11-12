@@ -20,7 +20,8 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::resource('pockets', PocketController::class);
     Route::post('hashTag', [ContentController::class, 'getContentByHashTag']);
-    Route::resource('contents',ContentController::class);
+    Route::delete('contents',[ContentController::class, 'destroy']);
+    Route::resource('contents',ContentController::class)->except(['destroy']);
 
 
 

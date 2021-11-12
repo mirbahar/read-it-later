@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContentDeletedRequest;
 use App\Http\Requests\ContentRequest;
 use App\Models\Content;
 use App\Services\Contracts\ContentServiceInterface;
@@ -48,7 +49,9 @@ class ContentController extends Controller
     {
         $hashTag = $request->get('hashTag');
 
-        return $this->contentService->getAllContentByHashTag($hashTag);
+        $contentList =  $this->contentService->getAllContentByHashTag($hashTag);
+
+        return $contentList;
     }
 
     /**
@@ -106,12 +109,19 @@ class ContentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $url
+     * @param ContentDeletedRequest $request
      * @return Response
      */
-    public function destroy($url)
+    public function destroy(ContentDeletedRequest $request)
     {
-        $content = $this->contentService->contentDeleteByUrl($url);
-        return $content;
+        $url = $request->url;
+
+        $deletedContent = $this->contentService->contentDeleteByUrl($url);
+
+        if ($deletedContent === 0) {
+            return response()->json("Content has been deleted'", 200);
+        }
+
+        return response()->json('Content Not Found', 404);
     }
 }

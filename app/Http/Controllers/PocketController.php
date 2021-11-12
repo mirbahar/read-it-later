@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeletedPocketRequest;
 use App\Http\Requests\PocketRequest;
 use App\Services\Contracts\PocketServiceInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 
@@ -29,7 +30,14 @@ class PocketController extends Controller
      */
     public function index($perPage = null)
     {
-        return $this->pocketService->getPocketList($perPage);
+        $pockets =  $this->pocketService->getPocketPocketsWithContentList($perPage);
+
+        if ($pockets->total() > 0) {
+            return $pockets;
+        }
+
+        return response()->json("Records Not Found", 404);
+
     }
 
     /**
@@ -45,35 +53,20 @@ class PocketController extends Controller
         ]);
     }
 
-    public function show(int $id): ?Collection
+
+    public function show(DeletedPocketRequest $request): ?Collection
     {
+        $id = $request->id;
+
         return $this->pocketService->detailsPocketById($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return bool
-     * @throws \Exception
-     */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
         $pocketRow = $this->pocketService->deletePocketById($id);
-;
-        if (is_null($pocketRow)) {
+
+        if ($pocketRow === 0) {
+
             return response()->json("Pocket id not found", 404);
         }
 

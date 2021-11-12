@@ -12,7 +12,7 @@ class ContentRepository extends BaseRepository implements ContentRepositoryInter
         parent::__construct($model);
     }
 
-    public function contentDeleteByUrl(string $url)
+    public function contentDeleteByUrl(string $url): int
     {
         $deletedRows = $this->model->where('url', $url)->with('tags')->delete();
 

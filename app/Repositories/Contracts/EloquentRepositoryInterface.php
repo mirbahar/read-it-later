@@ -19,11 +19,7 @@ interface EloquentRepositoryInterface
 
     public function all(): Collection;
 
-    /**
-     * @param int $id
-     * @return bool|null
-     */
-    public function delete(int $id);
+    public function delete(int $id): int;
 
     /**
      * Paginate the given query.

@@ -9,10 +9,7 @@ interface ContentServiceInterface
      */
     public function createContent($data);
 
-    /**
-     * @param $url
-     */
-    public function contentDeleteByUrl($url);
+    public function contentDeleteByUrl(string $url): int;
 
     public function getPocketList($perPage);
 

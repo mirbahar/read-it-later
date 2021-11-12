@@ -27,9 +27,10 @@ class PocketService implements PocketServiceInterface
     }
 
 
-    public function getPocketList($perPage): LengthAwarePaginator
+    public function getPocketPocketsWithContentList($perPage): LengthAwarePaginator
     {
-        return $this->pocketRepository->paginate(10);
+        $pockets = $this->pocketRepository->getPocketsWithContents($perPage);
+        return $pockets;
     }
 
     /**
@@ -46,15 +47,11 @@ class PocketService implements PocketServiceInterface
     public function detailsPocketById(int $pocketId): ?Collection
     {
         $pocket = $this->pocketRepository->detailsPocketById($pocketId);
-
         return $pocket;
+
     }
 
-    /**
-     * @param int $pocketId
-     * @return bool|null
-     */
-    public function deletePocketById(int $pocketId)
+    public function deletePocketById(int $pocketId): int
     {
         return $this->pocketRepository->delete($pocketId);
 

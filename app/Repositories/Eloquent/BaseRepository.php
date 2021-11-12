@@ -39,11 +39,7 @@ class BaseRepository implements EloquentRepositoryInterface
         return $this->model->all();
     }
 
-    /**
-     * @param int $id
-     * @return bool|null
-     */
-    public function delete(int $id)
+    public function delete(int $id): int
     {
         return $this->model->where('id', $id)->delete();
     }
