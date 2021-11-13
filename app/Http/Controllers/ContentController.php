@@ -119,9 +119,9 @@ class ContentController extends Controller
         $deletedContent = $this->contentService->contentDeleteByUrl($url);
 
         if ($deletedContent === 0) {
-            return response()->json("Content has been deleted'", 200);
+            return response()->json('Content Not Found', 404);
         }
 
-        return response()->json('Content Not Found', 404);
+        return response()->json("Content has been deleted'", 200);
     }
 }

@@ -3,69 +3,45 @@
 namespace App\Services\HttpClient;
 
 use App\Services\Contracts\AbstractHttpClientInterface;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
-use Psr\Http\Message\ResponseInterface;
+use Exception;
+use Goutte\Client;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\DomCrawler\Crawler;
 
 abstract class AbstractHttpClient implements AbstractHttpClientInterface
 {
     /** @var Client */
     private $httpClient;
 
-    /**
-     *@param $data
-     */
-    private $data   = [];
-
-    /**
-     *@param $data
-     */
-    private $params = [];
-
-    /**
-     *@param $data
-     */
-    private $header = [];
-
     public function __construct()
     {
         $this->httpClient = new Client();
     }
 
-
-    public function withJson(array $data): AbstractHttpClient
-    {
-        $this->params = $data;
-
-        return $this;
-    }
-    public function withHeaders(array $header): AbstractHttpClient
-    {
-        $this->header = $header;
-
-        return $this;
-    }
-
     /**
-     * @param string $uri
-     * @return ResponseInterface
-     * @throws GuzzleException
+     * @param string $url
+     * @return Crawler
+     * @throws Exception
      */
-    public function post(string $uri): ResponseInterface
+    public function get(string $url): Crawler
     {
-        $this->data['headers'] = $this->header;
-        $this->data['json']    = $this->params;
 
-        return $this->httpClient->post($uri, $this->data);
-    }
+        try {
 
-    /**
-     * @param string $uri
-     * @return ResponseInterface
-     * @throws GuzzleException
-     */
-    public function get(string $uri): ResponseInterface
-    {
-        return  $this->httpClient->get($uri, ['headers' => $this->header]);
+            Log::info('Web Site Crawling Running........');
+
+            return  $this->httpClient->request('GET',$url);
+
+        }catch (Exception $e) {
+
+            Log::info($e->getMessage());
+
+            throw new Exception('Bad Response', 500);
+
+        } finally {
+
+            Log::info('Web Crawling Done');
+        }
+
     }
 }
