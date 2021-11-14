@@ -8,7 +8,6 @@ Clone the repository. Make sure you have `docker`, `composer` and `docker-compos
 ##### when completed Clone the repository then following below steps
 
 * Step One
-
 ```bash
 cd project_directory
 composer install
@@ -19,18 +18,20 @@ composer install
 ```bash
 cp .env.example .env
 ```
-
 * Step Three: permission storage Folder & .env file(if you need)
 ```bash
 sudo chmod -R 0777 storage/
 sudo chmod -R 0777 .env
-
+```
+* Step Four: run sail
+```bash
+./vendor/bin/sail up -d
 ```
 * Step Four
 ```bash
 ./vendor/bin/sail artisan key:generate
 ```
-* Step Five
+* Step Five: Laravel Migration command
 ```bash
 ./vendor/bin/sail artisan migrate
 ```
@@ -42,7 +43,7 @@ sudo chmod -R 0777 .env
 ```bash
 ./vendor/bin/sail artisan l5-swagger:generate
 ```
-* Step Eight : Queue run
+* Step Eight : Queue run command
 ```bash
 ./vendor/bin/sail artisan queue:work
 ```
