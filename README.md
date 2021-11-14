@@ -13,14 +13,14 @@ Clone the repository. Make sure you have `docker`, `composer` and `docker-compos
 cd project_directory
 composer install
 ```
-*** if you fail composer install then you first permission your project directory and then run ```composer install```
+*** if you fail your composer install then you will first permission to your project directory and then run ```composer install```
 
 * Step Two
 ```bash
 cp .env.example .env
 ```
 
-* Step Three: permission storage Folder $ .env file(if u need)
+* Step Three: permission storage Folder & .env file(if you need)
 ```bash
 sudo chmod -R 0777 storage/
 sudo chmod -R 0777 .env
