@@ -4,15 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContentDeletedRequest;
 use App\Http\Requests\ContentRequest;
-use App\Http\Requests\CreateContentRequest;
-use App\Models\Content;
 use App\Services\Contracts\ContentServiceInterface;
 use App\Services\Contracts\TagServiceInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 
+/**
+ * @OA\Info(
+ *      version="1.0.0",
+ *      title="L5 OpenApi",
+ *      description="L5 Swagger OpenApi description"
+ * )
+ *
+ */
 class ContentController extends Controller
 {
     /**
@@ -32,7 +39,27 @@ class ContentController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *      path="/api/v1/contents",
+     *      operationId="Get Content listing",
+     *      tags={"Content"},
+     *      summary="Get All Contents",
+     *      description="Get all Contents",
+     *      @OA\RequestBody(
+     *          description="Pass page nubmer",
+     *          @OA\JsonContent(
+     *                  @OA\Property(property="perPage", type="int", example=1),
+     *                  @OA\Property(property="columns", type="[]", example = null),
+     *                  @OA\Property(property="pageName", type="string", example=null),
+     *                  @OA\Property(property="page", type="string", example=null),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success"
+     *      ),
+     * )
+     * Display a listing of the Pockets.
      *
      * @param Request $request
      * @return LengthAwarePaginator
@@ -43,10 +70,32 @@ class ContentController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * @OA\Post(
+     *      path="/api/v1/hashTag",
+     *      operationId="get All Content By HashTag",
+     *      tags={"Content"},
+     *      summary="get all Content By HashTag",
+     *      description="get all Content By HashTag",
+     *      * @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *                  required={"hashTag"},
+     *                  @OA\Property(property="hashTag", type="string", example="foo, the-config-directory, creating-and-dropping-tables"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *      ),
+     * )
      *
+     * Store a newly created content in storage.
      * @param Request $request
-     * @return Response
+     * @return Collection
      */
     public function getContentByHashTag(Request $request)
     {
@@ -58,8 +107,31 @@ class ContentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *      path="/api/v1/contents",
+     *      operationId="Create Content",
+     *      tags={"Content"},
+     *      summary="Create Content",
+     *      description="Create content",
+     *      * @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *                  required={"pocket_id","url"},
+     *                  @OA\Property(property="pocket_id", type="int", example="1"),
+     *                  @OA\Property(property="url", type="string", example="https://laravel.com/docs/8.x/testing"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *      ),
+     * )
      *
+     * Store a newly created content in storage.
      * @param ContentRequest $request
      * @return JsonResource
      */
@@ -70,52 +142,41 @@ class ContentController extends Controller
                 'url' => $request->url,
             ]);
 
-
         $this->tagService->createTags($content);
 
         return $content;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Content $content
-     * @return Response
-     */
-    public function show(Content $content)
-    {
-        //
-    }
 
     /**
-     * Show the form for editing the specified resource.
+     * @OA\Delete(
+     *      path="/api/v1/contents",
+     *      operationId="Delete Content",
+     *      tags={"Content"},
+     *      summary="Delete Content",
+     *      description="Delete content",
+     *      * @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *                  required={"url"},
+     *                  @OA\Property(property="url", type="string", example="www.facebook.com"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *      ),
+     * )
      *
-     * @param Content $content
-     * @return Response
-     */
-    public function edit(Content $content)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param Content $content
-     * @return Response
-     */
-    public function update(Request $request, Content $content)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
-     *
      * @param ContentDeletedRequest $request
      * @return Response
      */
+
     public function destroy(ContentDeletedRequest $request)
     {
         $url = $request->url;
