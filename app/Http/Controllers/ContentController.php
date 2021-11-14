@@ -151,7 +151,7 @@ class ContentController extends Controller
     /**
      * @OA\Delete(
      *      path="/api/v1/contents",
-     *      operationId="Delete Content",
+     *      operationId="Delete Content By Url",
      *      tags={"Content"},
      *      summary="Delete Content",
      *      description="Delete content",
