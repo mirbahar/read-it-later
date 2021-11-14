@@ -5,8 +5,8 @@ namespace App\Repositories\Eloquent;
 use App\Models\Pocket;
 use App\Repositories\Contracts\PocketRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use InvalidArgumentException;
 
 
 class PocketRepository extends BaseRepository implements PocketRepositoryInterface
@@ -22,19 +22,14 @@ class PocketRepository extends BaseRepository implements PocketRepositoryInterfa
         return $pockets;
     }
 
-    /**
-     * Paginate the given query.
-     *
-     * @param  int|null  $perPage
-     * @param  array  $columns
-     * @param  string  $pageName
-     * @param  int|null  $page
-     * @return LengthAwarePaginator
-     *
-     * @throws InvalidArgumentException
-     */
-    public function getPocketsWithContents($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
+    public function getPocketsWithContents(Request $request) : LengthAwarePaginator
     {
-        return $this->model->with('contents')->select($columns)->paginate($perPage);
+
+        $perPage     = $request->get('perPage') ?: null ;
+        $columns     = $request->get('columns') ? : ['*'];
+        $pageName    = $request->get('pageName') ?: 'page';
+        $page        = $request->get('page') ?: null;
+
+        return $this->model->with('contents')->select($columns)->paginate($perPage, $columns, $pageName, $page);
     }
 }

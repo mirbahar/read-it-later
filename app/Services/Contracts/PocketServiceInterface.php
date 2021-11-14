@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 
 interface PocketServiceInterface
 {
-    public function getPocketPocketsWithContentList(Request $request): LengthAwarePaginator;
+    public function getPocketsWithContentList(Request $perPage): LengthAwarePaginator;
 
     public function storePocket(array $data);
 

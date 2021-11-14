@@ -72,7 +72,7 @@
                                                                         <h5 class="card-title text-center">{{$content->title}}</h5>
                                                                         @if(!empty($content->tags))
                                                                             @foreach($content->tags as $tag)
-                                                                                <a class="btn btn-info justify-content-start" target="_blank" href="{{$content->url}}">{{ $tag->name }}</a>
+                                                                                <a class="btn btn-info" target="_blank" href="{{$content->url}}">{{ $tag->name }}</a>
                                                                             @endforeach
                                                                         @else
                                                                             No Tags

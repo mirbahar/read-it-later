@@ -6,6 +6,7 @@ use App\Http\Resources\PocketResource;
 use App\Repositories\Contracts\PocketRepositoryInterface;
 use App\Services\Contracts\PocketServiceInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class PocketService implements PocketServiceInterface
@@ -27,9 +28,10 @@ class PocketService implements PocketServiceInterface
     }
 
 
-    public function getPocketPocketsWithContentList($perPage): LengthAwarePaginator
+    public function getPocketsWithContentList(Request $request): LengthAwarePaginator
     {
-        $pockets = $this->pocketRepository->getPocketsWithContents($perPage);
+        $pockets = $this->pocketRepository->getPocketsWithContents($request);
+
         return $pockets;
     }
 

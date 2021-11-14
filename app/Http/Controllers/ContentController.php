@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContentDeletedRequest;
 use App\Http\Requests\ContentRequest;
+use App\Http\Requests\CreateContentRequest;
 use App\Models\Content;
 use App\Services\Contracts\ContentServiceInterface;
 use App\Services\Contracts\TagServiceInterface;
@@ -60,12 +61,13 @@ class ContentController extends Controller
      * @param ContentRequest $request
      * @return Response
      */
-    public function store(ContentRequest $request)
+    public function store(CreateContentRequest $request)
     {
         $content = $this->contentService->createContent([
                 'pocket_id' => $request->pocket_id,
                 'url' => $request->url,
             ]);
+
 
         $this->tagService->createTags($content);
 

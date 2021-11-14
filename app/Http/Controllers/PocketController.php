@@ -7,6 +7,7 @@ use App\Http\Requests\PocketRequest;
 use App\Services\Contracts\PocketServiceInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 
@@ -25,12 +26,12 @@ class PocketController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param $perPage
+     * @param Request $request
      * @return LengthAwarePaginator
      */
-    public function index($perPage = null)
+    public function index(Request $request)
     {
-        $pockets =  $this->pocketService->getPocketPocketsWithContentList($perPage);
+        $pockets =  $this->pocketService->getPocketsWithContentList($request);
 
         return view('pockets.list', compact('pockets'));
 
