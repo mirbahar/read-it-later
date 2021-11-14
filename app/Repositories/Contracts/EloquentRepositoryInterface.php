@@ -4,8 +4,8 @@ namespace App\Repositories\Contracts;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use InvalidArgumentException;
 
 /**
  * Interface EloquentRepositoryInterface
@@ -21,16 +21,5 @@ interface EloquentRepositoryInterface
 
     public function delete(int $id): int;
 
-    /**
-     * Paginate the given query.
-     *
-     * @param  int|null  $perPage
-     * @param  array  $columns
-     * @param  string  $pageName
-     * @param  int|null  $page
-     * @return LengthAwarePaginator
-     *
-     * @throws InvalidArgumentException
-     */
-    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null);
+    public function paginate(Request $request): LengthAwarePaginator;
 }

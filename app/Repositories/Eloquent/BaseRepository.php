@@ -3,8 +3,10 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\EloquentRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class BaseRepository implements EloquentRepositoryInterface
@@ -44,19 +46,14 @@ class BaseRepository implements EloquentRepositoryInterface
         return $this->model->where('id', $id)->delete();
     }
 
-    /**
-     * Paginate the given query.
-     *
-     * @param  int|null  $perPage
-     * @param  array  $columns
-     * @param  string  $pageName
-     * @param  int|null  $page
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
+    public function paginate(Request $request): LengthAwarePaginator
     {
+
+        $perPage     = $request->get('perPage') ?: null ;
+        $columns     = $request->get('columns') ? : ['*'];
+        $pageName    = $request->get('pageName') ?: 'page';
+        $page        = $request->get('page') ?: null;
+
         return $this->model->paginate($perPage, $columns, $pageName, $page);
     }
 }

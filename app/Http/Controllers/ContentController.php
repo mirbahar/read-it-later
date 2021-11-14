@@ -8,7 +8,9 @@ use App\Http\Requests\CreateContentRequest;
 use App\Models\Content;
 use App\Services\Contracts\ContentServiceInterface;
 use App\Services\Contracts\TagServiceInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 
 class ContentController extends Controller
@@ -32,12 +34,12 @@ class ContentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param null $perPage
-     * @return Response
+     * @param Request $request
+     * @return LengthAwarePaginator
      */
-    public function index($perPage = null)
+    public function index(Request $request)
     {
-        return $this->contentService->getPocketList($perPage);
+        return $this->contentService->getContentList($request);
     }
 
     /**
@@ -59,9 +61,9 @@ class ContentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param ContentRequest $request
-     * @return Response
+     * @return JsonResource
      */
-    public function store(CreateContentRequest $request)
+    public function store(ContentRequest $request)
     {
         $content = $this->contentService->createContent([
                 'pocket_id' => $request->pocket_id,

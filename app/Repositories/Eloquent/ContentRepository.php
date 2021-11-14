@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Content;
 use App\Repositories\Contracts\ContentRepositoryInterface;
+use Illuminate\Support\Collection;
 
 class ContentRepository extends BaseRepository implements ContentRepositoryInterface
 {
@@ -19,7 +20,7 @@ class ContentRepository extends BaseRepository implements ContentRepositoryInter
         return $deletedRows;
     }
 
-    public function getAllContentByHashTag(array $hashTag)
+    public function getAllContentByHashTag(array $hashTag): ?Collection
     {
         $contents = $this->model
             ->join('tags', 'contents.id', '=', 'tags.content_id')
