@@ -27,5 +27,10 @@ cp .env.example .env
 ```bash
 ./vendor/bin/sail artisan db:seed
 ```
+* Step Six : Queue run
+```bash
+./vendor/bin/sail artisan work:queue
+```
 * Front End : http://localhost:8080/ 
 * Phpmyadmin Connection : http://localhost:8082/
+* swagger: http://localhost:8080/api/documentation
