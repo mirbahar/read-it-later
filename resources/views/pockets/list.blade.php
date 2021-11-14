@@ -48,7 +48,6 @@
             @if(!empty($pockets))
                 <div class="row">
                     @foreach( $pockets->items() as $pocket)
-{{--                        {{ dump() }}--}}
                         <div class="container-fluid" style="padding-top: 50px;">
                             <div class="card">
                                 <div class="card-body">
@@ -71,15 +70,21 @@
                                                                     <img class="card-img-top" src="{{$content->image}}" alt="Card image cap">
                                                                     <div class="card-body">
                                                                         <h5 class="card-title text-center">{{$content->title}}</h5>
-                                                                        <button class="btn btn-info justify-content-start">View </button>
-                                                                        <button class="btn btn-info align-items-end">View </button>
+                                                                        @if(!empty($content->tags))
+                                                                            @foreach($content->tags as $tag)
+                                                                                <a class="btn btn-info justify-content-start" target="_blank" href="{{$content->url}}">{{ $tag->name }}</a>
+                                                                            @endforeach
+                                                                        @else
+                                                                            No Tags
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             @endforeach
                                                         </div>
+                                                        @else
+                                                            <div class="row">Contents not available here!</div>
                                                         @endif
-                                                        <div class="row">Content not available here</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -95,6 +100,8 @@
                         {{ $pockets->links()}}
                     </div>
                 </div>
+            @else
+            <div class="row">Pockets not available here!</div>
             @endif
         </div>
     </div>

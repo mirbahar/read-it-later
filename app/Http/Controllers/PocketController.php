@@ -32,12 +32,6 @@ class PocketController extends Controller
     {
         $pockets =  $this->pocketService->getPocketPocketsWithContentList($perPage);
 
-        /*if ($pockets->total() > 0) {
-            return $pockets;
-        }*/
-
-//        return response()->json("Records Not Found", 404);
-
         return view('pockets.list', compact('pockets'));
 
     }
