@@ -38,8 +38,29 @@ class PocketController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *      path="/api/v1/pockets",
+     *      operationId="Create Pocket",
+     *      tags={"Pocket"},
+     *      summary="Create Pocket",
+     *      * @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *                  required={"title"},
+     *                  @OA\Property(property="title", type="string", example="Pocket One"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *      ),
+     * )
      *
+     * Store a newly created pocket in storage.
      * @param PocketRequest $request
      * @return Response
      */
@@ -50,7 +71,28 @@ class PocketController extends Controller
         ]);
     }
 
-
+    /**
+     * @OA\Get(
+     *      path="/api/v1/pockets",
+     *      operationId="Show Pocket",
+     *      tags={"Pocket"},
+     *      summary="Show Pocket",
+     *      description="Detail Pocket",
+     *      @OA\RequestBody(
+     *          @OA\JsonContent(
+     *                  @OA\Property(property="id", type="int", example=1),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success"
+     *      ),
+     * )
+     * Display a listing of the Pockets.
+     *
+     * @param DeletedPocketRequest $request
+     * @return Collection|null
+     */
     public function show(DeletedPocketRequest $request): ?Collection
     {
         $id = $request->id;
