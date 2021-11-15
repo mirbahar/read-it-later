@@ -6,6 +6,7 @@ use App\Http\Requests\ContentDeletedRequest;
 use App\Http\Requests\ContentRequest;
 use App\Services\Contracts\ContentServiceInterface;
 use App\Services\Contracts\TagServiceInterface;
+use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -99,10 +100,21 @@ class ContentController extends Controller
      */
     public function getContentByHashTag(Request $request)
     {
-        $hashTag = $request->get('hashTag');
+
+        try {
+
+        $hashTag = $request->get('hashTag') ? $request->get('hashTag') :null;
+
+        if(!$hashTag) {
+
+            return response()->json('Hash tag field is required');
+        }
 
         $contentList =  $this->contentService->getAllContentByHashTag($hashTag);
 
+        } catch (Exception $e){
+            return response()->json($e->getMessage());
+        }
         if($contentList->count() > 0) {
 
             return $contentList;

@@ -20,7 +20,11 @@ class ContentRepository extends BaseRepository implements ContentRepositoryInter
         return $deletedRows;
     }
 
-    public function getAllContentByHashTag(array $hashTag): ?Collection
+    /**
+     * @param array $hashTag
+     * @return Collection | null
+     */
+    public function getAllContentByHashTag(array $hashTag)
     {
         $contents = $this->model
             ->join('tags', 'contents.id', '=', 'tags.content_id')

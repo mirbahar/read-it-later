@@ -59,7 +59,7 @@ class ContentService implements ContentServiceInterface
      * @return Collection|null
      * @throws Exception
      */
-    public function getAllContentByHashTag(string $hashTag): ?Collection
+    public function getAllContentByHashTag(string $hashTag)
     {
         try {
 
@@ -70,18 +70,13 @@ class ContentService implements ContentServiceInterface
                 return trim($item);
             }, $hash);
 
-            if(!is_array($hash)) {
-
-                return response()->json('use valid hashTag or key words');
-            }
-
             $contents = $this->contentRepository->getAllContentByHashTag($hash);
 
             return $contents;
 
         } catch (Exception $e) {
 
-            throw new Exception('Invalid Hash Tag... Enter Valid HashTag');
+            throw new Exception('Invalid Hash Tag... Enter Valid HashTag with provided comma separator string');
         }
 
     }

@@ -36,12 +36,6 @@ class ProcessCrawlContent implements ShouldQueue
      */
     public function handle()
     {
-       /* try {
-            $crawler = new WebCrawlerService($this->content);
-
-        } catch (\Throwable $th) {
-            Log::error($th->getMessage());
-        }*/
         try {
 
             $crawler = new WebCrawlerService($this->content);

@@ -16,5 +16,9 @@ interface ContentServiceInterface
 
     public function getContentList(Request $request): LengthAwarePaginator;
 
-    public function getAllContentByHashTag(string $hashTag): ?Collection;
+    /**
+     * @param string $hashTag
+     * @return Collection | null
+     */
+    public function getAllContentByHashTag(string $hashTag);
 }
