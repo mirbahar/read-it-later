@@ -45,7 +45,9 @@
                     {{ $pockets->links()}}
                 </div>
             </div>
-            @if(!empty($pockets))
+
+            @if(!empty($pockets->total() > 0))
+
                 <div class="row">
                     @foreach( $pockets->items() as $pocket)
                         <div class="container-fluid" style="padding-top: 50px;">
@@ -69,6 +71,7 @@
                                                                 <div class="card" style="max-width: 18rem;">
                                                                     <img class="card-img-top" src="{{$content->image}}" alt="Card image cap">
                                                                     <div class="card-body">
+                                                                        <p>{{$content->excerpt}}</p>
                                                                         <h5 class="card-title text-center">{{$content->title}}</h5>
                                                                         @if(!empty($content->tags))
                                                                             @foreach($content->tags as $tag)
@@ -101,7 +104,9 @@
                     </div>
                 </div>
             @else
-            <div class="row">Pockets not available here!</div>
+
+            <div class="row">
+                <h2>Pockets not available here! </h2></div>
             @endif
         </div>
     </div>

@@ -14,6 +14,8 @@ class PocketSeeder extends Seeder
 
     /** @var Pocket*/
     public $pocketTwo;
+    /** @var Pocket*/
+    public $pocketThree;
 
 
     /**
@@ -30,6 +32,9 @@ class PocketSeeder extends Seeder
 
             $this->pocketTwo = Pocket::create([
                 'title' => 'Pocket 2'
+            ]);
+            $this->pocketThree = Pocket::create([
+                'title' => 'Pocket 3'
             ]);
 
         } catch (Exception $e) {

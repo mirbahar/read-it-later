@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             PocketSeeder::class,
-            ContentSeeder::class
+            ContentSeeder::class,
+            TagsSeeder::class
         ]);
 
     }
