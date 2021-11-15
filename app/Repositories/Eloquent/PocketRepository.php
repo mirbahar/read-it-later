@@ -16,6 +16,10 @@ class PocketRepository extends BaseRepository implements PocketRepositoryInterfa
         parent::__construct($model);
     }
 
+    /**
+     * @param int $pocketId
+     * @return Collection|null
+     */
     public function detailsPocketById(int $pocketId): ?Collection
     {
         $pockets =  $this->model->findOrFail($pocketId)->with('contents')->get();

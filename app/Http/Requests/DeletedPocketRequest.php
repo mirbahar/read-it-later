@@ -26,7 +26,7 @@ class DeletedPocketRequest extends PocketRequest
     public function rules()
     {
         return [
-            'id' => 'required|exists:pockets',
+            'id' => 'required',
         ];
     }
 }

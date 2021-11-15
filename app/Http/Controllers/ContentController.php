@@ -103,7 +103,12 @@ class ContentController extends Controller
 
         $contentList =  $this->contentService->getAllContentByHashTag($hashTag);
 
-        return $contentList;
+        if($contentList->count() > 0) {
+
+            return $contentList;
+        }
+
+        return response()->json('Contents not available here!');
     }
 
     /**

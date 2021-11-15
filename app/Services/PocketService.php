@@ -49,6 +49,7 @@ class PocketService implements PocketServiceInterface
     public function detailsPocketById(int $pocketId): ?Collection
     {
         $pocket = $this->pocketRepository->detailsPocketById($pocketId);
+
         return $pocket;
 
     }
