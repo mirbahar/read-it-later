@@ -55,3 +55,5 @@ db_username: mirbahar
 db_password: admin123
 ```
 * swagger: http://localhost:8080/api/documentation
+
+* Note: if all swagger api dose not work then export postman collection from root project directory.
