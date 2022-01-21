@@ -21,7 +21,7 @@ jobs:
       run: sudo chmod -R 0777 storage/
       
     - name: Run Sail
-      run: ./vendor/bin/sail up -d
+      run: ./vendor/bin/sail up
       
     - name: Generate key
       run: ./vendor/bin/sail artisan key:generate
