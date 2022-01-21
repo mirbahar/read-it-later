@@ -3,7 +3,7 @@ name: Read it later
 on: push
 
 jobs:
-  laravel-tests:
+  read-it-later:
 
     runs-on: ubuntu-latest
 
