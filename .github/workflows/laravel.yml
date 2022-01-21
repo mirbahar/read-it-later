@@ -20,6 +20,9 @@ jobs:
     - name: Directory Permissions
       run: sudo chmod -R 0777 storage/
       
+    - name: env permission
+      run: sudo chmod -R 0777 .env
+      
     - name: Run Sail
       run: ./vendor/bin/sail up
       
