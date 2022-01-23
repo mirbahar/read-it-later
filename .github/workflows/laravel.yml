@@ -21,9 +21,11 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Create Database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
+      uses: mirromutth/mysql-action@v1.1
+      with:
+        mysql root password: ${{ secrets.RootPassword }}
+        mysql user: 'mirbahar'
+        mysql password: 'admin123'
     - name: migrate
       run: php artisan migrate
     - name: Execute tests (Unit and Feature tests) via PHPUnit
